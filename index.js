@@ -28,6 +28,87 @@ app.get('/webhook/', function (req, res) {
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
+// Đoạn code xử lý khi có người nhắn tin cho bot
 
-app.post('/webhook/', function (req, res) { messaging_events = req.body.entry[0].messaging for (i = 0; i < messaging_events.length; i++) { event = req.body.entry[0].messaging[i] sender = event.sender.id if (event.message && event.message.text) { text = event.message.text sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200)) } } res.sendStatus(200) }) var token = "EAAUHhKvuq0cBAPrO5GzlA8BpCmbcZCtGr0rkVovhbEQS5lb2aJ3ZA9p2gQ7Ik0mUVWwzuYX3fFOoJuDZAVfZB9ZAZASLcd8kX4MHQwx2IdZASJStZCbziBSMI2b8FAWyVxZCQDKdzDakts3JjNjClOyiXF3UuvNC3GH1GlClMWo8liwZDZD"
-function sendTextMessage(sender, text) { messageData = { text:text } request({ url: 'https://graph.facebook.com/v2.6/me/messages', qs: {access_token:token}, method: 'POST', json: { recipient: {id:sender}, message: messageData, } }, function(error, response, body) { if (error) { console.log('Error sending messages: ', error) } else if (response.body.error) { console.log('Error: ', response.body.error) } }) }
+app.post('/webhook', function(req, res) {
+
+  var entries = req.body.entry;
+
+  for (var entry of entries) {
+
+    var messaging = entry.messaging;
+
+    for (var message of messaging) {
+
+      var senderId = message.sender.id;
+
+      if (message.message) {
+
+        // Nếu người dùng gửi tin nhắn đến
+
+        if (message.message.text) {
+
+          var text = message.message.text;
+
+          if(text == 'hi' || text == "hello")
+
+          {
+
+            sendMessage(senderId, "C-selfie: " + 'Xin Chào, có thể giúp gì cho bạn ngay bây giờ');
+
+          }
+
+          else{sendMessage(senderId, "C-selfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
+
+        }
+
+      }
+
+    }
+
+  }
+
+ 
+
+  res.status(200).send("OK");
+
+});
+
+ 
+
+// Gửi thông tin tới REST API để Bot tự trả lời
+
+function sendMessage(senderId, message) {
+
+  request({
+
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+
+    qs: {
+
+      access_token: "EAAUHhKvuq0cBADleSnqf2sRxoQMW5T0gnWWYtfgozIoypvKyZCjeJwWdU9TyPRynlmEWDVAHlzmAyJg89grv6bGUk1p8hN8A6Fl27NZBuVxTMVvuYIrL9KJBaXPaXterieCdjD18CAy2xtYnVGL9bb3a9IYqSqX8NefaI9ZBwZDZD",
+
+    },
+
+    method: 'POST',
+
+    json: {
+
+      recipient: {
+
+        id: senderId
+
+      },
+
+      message: {
+
+        text: message
+
+      },
+
+    }
+
+  });
+
+}
+
