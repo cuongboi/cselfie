@@ -1,32 +1,33 @@
-// # SimpleServer
-// A simple chat bot server
+var express = require('express')
+var bodyParser = require('body-parser')
+var request = require('request')
+var app = express()
 
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var express = require('express');
-var request = require('request');
-var router = express();
+app.set('port', (process.env.PORT || 5000))
 
-var app = express();
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-var server = http.createServer(app);
+// Process application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
 
-app.listen(process.env.PORT || 3000);
+// Process application/json
+app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.send("Hello world.");
-});
+// Index route
+app.get('/', function (req, res) {
+    res.send('Hello world, I am a chat bot')
+})
 
-app.get('/webhook', function(req, res) {
-  if (req.query['hub.verify_token'] === 'cuong') {
-    res.send(req.query['hub.challenge']);
-  }
-  res.send('Error, wrong validation token');
-});
+// for Facebook verification
+app.get('/webhook/', function (req, res) {
+    if (req.query['hub.verify_token'] === 'cuong') {
+        res.send(req.query['hub.challenge'])
+    }
+    res.send('Error, wrong token')
+})
+
+// Spin up the server
+app.listen(app.get('port'), function() {
+    console.log('running on port', app.get('port'))
+})
 
 // Đoạn code xử lý khi có người nhắn tin cho bot
 app.post('/webhook', function(req, res) {
