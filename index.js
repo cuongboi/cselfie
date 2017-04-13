@@ -2,7 +2,6 @@
 // A simple chat bot server
 
 var logger = require('morgan');
-var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var request = require('request');
