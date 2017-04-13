@@ -1,5 +1,3 @@
-﻿// # SimpleServer
-// A simple chat bot server
  
 var logger = require('morgan');
 var http = require('http');
@@ -14,13 +12,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
 var server = http.createServer(app);
  
 app.listen(process.env.PORT || 3000);
  
 app.get('/', (req, res) => {
-  res.send("Hello World!");
+  res.send("Server chạy ngon lành.");
 });
  
 app.get('/webhook', function(req, res) {
@@ -41,13 +38,12 @@ app.post('/webhook', function(req, res) {
         // Nếu người dùng gửi tin nhắn đến
         if (message.message.text) {
           var text = message.message.text;
-			if(text == 'hi' || text == "hello" || text == "chao" || text == "chào" )
+          if(text == 'hi' || text == "hello")
           {
-            sendMessage(senderId, "CSelfie: " + 'Xin Chào');
+            sendMessage(senderId, 'Xin Chào C-selfie có thể giúp gì cho bạn');
           }
-          else{sendMessage(senderId, "CSelfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
-        
-		}
+          else{sendMessage(senderId, "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
+        }
       }
     }
   }
