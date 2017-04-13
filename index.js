@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var request = require('request');
 var router = express();
+var access_token = "EAAUHhKvuq0cBANRK9vGGiZCKa1z8XtUzfUcEtZCgrXFn2qJyl4NzzYZBUUhZB4An1nlZCbvshOn0GFd8mNCT4h8LZCPmo9jggDuaNVfgD98lbNDmYCTelu5j7QKhjUXQAL03fpmxKxNSeCymHRtFCrwcjur2alzSsg7yKA5EX7KAZDZD";
  
 var app = express();
 app.use(logger('dev'));
@@ -28,47 +29,67 @@ app.get('/webhook', function(req, res) {
   }
   res.send('Error, wrong validation token');
 });
- 
-// Đoạn code xử lý khi có người nhắn tin cho bot
-app.post('/webhook', function(req, res) {
-  var entries = req.body.entry;
-  for (var entry of entries) {
-    var messaging = entry.messaging;
-    for (var message of messaging) {
-      var senderId = message.sender.id;
-      if (message.message) {
-        // Nếu người dùng gửi tin nhắn đến
-        if (message.message.text) {
-          var text = message.message.text;
-	  if(text == 'hi' || text == "hello" || text == "chao" || text == "chào" )
-          {
-            sendMessage(senderId, "CSelfie: " + 'Xin Chào');
-          }
-          else{sendMessage(senderId, "CSelfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
-        
-		}
-      }
+ app.post('/webhook/', function (req, res) {
+    messaging_events = req.body.entry[0].messaging
+    for (i = 0; i < messaging_events.length; i++) {
+        event = req.body.entry[0].messaging[i]
+        sender = event.sender.id
+        if (event.message && event.message.text) {
+            text = event.message.text
+            if (text === 'Generic') {
+                sendGenericMessage(sender)
+                continue
+            }
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        }
     }
-  }
- 
-  res.status(200).send("OK");
-});
- 
-// Gửi thông tin tới REST API để Bot tự trả lời
-function sendMessage(senderId, message) {
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {
-      access_token: "EAAUHhKvuq0cBANRK9vGGiZCKa1z8XtUzfUcEtZCgrXFn2qJyl4NzzYZBUUhZB4An1nlZCbvshOn0GFd8mNCT4h8LZCPmo9jggDuaNVfgD98lbNDmYCTelu5j7QKhjUXQAL03fpmxKxNSeCymHRtFCrwcjur2alzSsg7yKA5EX7KAZDZD",
-    },
-    method: 'POST',
-    json: {
-      recipient: {
-        id: senderId
-      },
-      message: {
-        text: message
-      },
+    res.sendStatus(200)
+})
+function sendGenericMessage(sender) {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "First card",
+                    "subtitle": "Element #1 of an hscroll",
+                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://www.messenger.com",
+                        "title": "web url"
+                    }, {
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for first element in a generic bubble",
+                    }],
+                }, {
+                    "title": "Second card",
+                    "subtitle": "Element #2 of an hscroll",
+                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for second element in a generic bubble",
+                    }],
+                }]
+            }
+        }
     }
-  });
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
 }
