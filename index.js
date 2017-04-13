@@ -47,6 +47,12 @@ app.get('/webhook', function(req, res) {
   }
   res.send('Error, wrong validation token');
 });
+
+app.get('/webhook', function(req, res) {
+  if (req.query['chat']) {
+    alert('chat');
+  }
+});
  
 // Đoạn code xử lý khi có người nhắn tin cho bot
 app.post('/webhook', function(req, res) {
