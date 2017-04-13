@@ -26,9 +26,6 @@ app.get('/', (req, res) => {
 app.get('/webhook', function(req, res) {
   if (req.query['hub.verify_token'] === 'cuong') {
     res.send(req.query['hub.challenge']);
-	  if (req.query['chat']) {
-    res.send('chat');
-  	}
   }
   res.send('Error, wrong validation token');
 });
