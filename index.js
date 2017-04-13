@@ -40,12 +40,13 @@ app.post('/webhook', function(req, res) {
         // Nếu người dùng gửi tin nhắn đến
         if (message.message.text) {
           var text = message.message.text;
-          if(text == 'hi' || text == "hello")
+	  if(text == 'hi' || text == "hello" || text == "chao" || text == "chào" )
           {
             sendMessage(senderId, "CSelfie: " + 'Xin Chào');
           }
           else{sendMessage(senderId, "CSelfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
-        }
+        
+		}
       }
     }
   }
