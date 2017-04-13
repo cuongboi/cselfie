@@ -42,9 +42,9 @@ app.post('/webhook', function(req, res) {
           var text = message.message.text;
           if(text == 'hi' || text == "hello")
           {
-            sendMessage(senderId, "Trung Quân's Bot: " + 'Xin Chào');
+            sendMessage(senderId, "CSelfie: " + 'Xin Chào');
           }
-          else{sendMessage(senderId, "Trung Quân's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
+          else{sendMessage(senderId, "CSelfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
         }
       }
     }
@@ -58,7 +58,7 @@ function sendMessage(senderId, message) {
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
-      access_token: "mã_truy_cập_trang",
+      access_token: "EAAUHhKvuq0cBABLYZBPTzYBZCfOgZBg0VnGqbfKyki4evQ5uIPUSZBmN5493zw8KZB60zK2uAfTZCqQUZAbHTm1O40QXVqgWFER5O1c2T1ZCI7I26Fz1OaWxePCUsQQaIMQShbAMJ6ZBa1D0ZCrWOrvhkNP7us4yqRC8AsBUwCklZApcgZDZD",
     },
     method: 'POST',
     json: {
