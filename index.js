@@ -81,7 +81,7 @@ function sendMessage(sender, text) {
     })
 }
 function getrep(text) {
- request('http://c-selfie.com/api.php?hoi=' + text, function (error, response, body) {
-  return response
+ request('http://c-selfie.com/api.php?hoi=daw' + text, function (error, response, body) {
+  return 'ok'
 });
 }
