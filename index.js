@@ -44,11 +44,8 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-         if (text == 'hi' || text == 'hello') {
-         sendMessage(sender, "Hi, Can I Help You")
-         } else {
-         sendMessage(sender, "I will reply soon")
-         }
+
+         sendMessage(sender, getrep(text))
             
         }
     }
@@ -77,3 +74,14 @@ function sendMessage(sender, text) {
         }
     })
 }
+
+
+function getrep(text) {
+    request({
+        url: 'http://c-selfie.com/api.php?hoi=' + text,
+    }, function(response) {
+        return response
+    })
+}
+
+
