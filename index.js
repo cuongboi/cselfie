@@ -1,33 +1,3 @@
-
-Skip to content
-This repository
-
-    Pull requests
-    Issues
-    Gist
-
-    @cuongboi
-
-1
-0
-
-    0
-
-cuongboi/cselfie
-Code
-Issues 0
-Pull requests 0
-Projects 0
-Wiki
-Pulse
-Graphs
-Settings
-cselfie/index.js
-aa93199 3 minutes ago
-@cuongboi cuongboi update
-76 lines (67 sloc) 2.06 KB
-// A simple chat bot server
- 
 var logger = require('morgan');
 var http = require('http');
 var bodyParser = require('body-parser');
