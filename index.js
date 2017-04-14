@@ -14,17 +14,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
-    if(req.query['x']){
-    request('http://c-selfie.com/api.php?hoi=daw', function (error, response, body) {
-      res.send(response)  
-    });
-    }
 })
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
-    var text = req.query['hoi']
-    res.send(getrep(text)
+
     }
     res.send('No')
 })
@@ -49,9 +43,8 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            retext = getrep(text)
          if (text == 'hi' || text == 'hello') {
-         sendMessage(sender, retext)
+         sendMessage(sender, "Hi, Can I Help You")
          } else {
          sendMessage(sender, "I will reply soon")
          }
@@ -80,6 +73,21 @@ function sendMessage(sender, text) {
             console.log('Error sending messages: ', error)
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
+        }
+    })
+}
+function getrep(text) {
+    request({
+        url: 'http://c-selfie.com/api.php',
+        method: 'GET',
+        json: {
+            hoi: text
+        }
+    }, function(error, response, body) {
+        if (error) {
+            return 'Error sending messages: '+ error
+        } else {
+            return response
         }
     })
 }
