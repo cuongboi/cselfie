@@ -1,3 +1,5 @@
+// A simple chat bot server
+ 
 var logger = require('morgan');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -40,12 +42,12 @@ app.post('/webhook', function(req, res) {
           if(text == 'hi' || text == "hello")
           {
             sendMessage(senderId, "C-selfie: " + 'Xin Chào');
-          } elseif(text == 'ck' || text == "chong")
-          {
-            sendMessage(senderId, "Chồng: " + 'Xin chào vk iu');
-          }
-          else{sendMessage(senderId, "C-selfie: " + "Chúng tôi sẽ trả lời sớm nhất.");}
-}
+          }  else {
+            if(text == 'ck' || text == "chong") { sendMessage(senderId, "chồng: " + 'Xin Chào Vk iu'); }
+              else{sendMessage(senderId, "C-selfie: " + "Tôi sẽ trả lời bạn sớm nhất.");}
+
+          } 
+        }
       }
     }
   }
