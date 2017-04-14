@@ -16,6 +16,14 @@ app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
+app.get('/quest', function (req, res) {
+    if(req.query['hoi'].length > 0) {
+    sendMessage('1058075870932209', req.query['hoi']);
+    res.send('ok mes send')
+    }
+    res.send('No')
+})
+
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'cuong') {
