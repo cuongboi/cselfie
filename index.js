@@ -26,6 +26,10 @@ app.get('/quest', function (req, res) {
     }
     
 })
+app.get('/datahub', function (req, res) {
+    g = require('./data.json') 
+    res.send(g)
+})
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
