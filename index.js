@@ -79,6 +79,6 @@ function sendMessage(sender, text) {
 function getrep(text) {
 var url = require('http://c-selfie.com/api.php?hoi=' + text);
 var url_parts = url.parse(request.url, true);
-var query = url_parts.query;
-    return query;
+var n = url_parts.query;
+    return n;
 }
