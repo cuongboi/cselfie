@@ -16,19 +16,9 @@ app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
-app.get('/quest', function (req, res) {
-    if(req.query['hoi'].length > 0) {
-      text = req.query['hoi']
-      reptext = getrep(text)
-      console.log (reptext)
-    } else {
-      res.send('No')
-    }
-    
-})
 app.get('/datahub', function (req, res) {
-    g = require('http://c-selfie.com/api.json') 
-    res.send(g)
+    g = require('./data.json') 
+    res.send(g.hoi)
 })
 
 // for Facebook verification
