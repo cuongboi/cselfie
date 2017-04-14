@@ -45,6 +45,12 @@ app.post('/webhook', function(req, res) {
           }
           else{sendMessage(senderId, "C-selfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
         }
+       if(text == 'ck' || text == "chong" || text == "chồng")
+          {
+            sendMessage(senderId, "Chồng: " + 'Xin chào vk iu');
+          }
+          else{sendMessage(senderId, "Chồng: " + "Từ từ anh trả lời vk nha.");}
+}
       }
     }
   }
