@@ -18,8 +18,8 @@ app.get('/', function (req, res) {
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
-    var text = require('data.json').parse(req.url,true).query;
-    res.send(text.hoi)
+    var text = req.query['hoi']
+    res.send(getrep('nu'))
     }
     res.send('No')
 })
@@ -74,6 +74,21 @@ function sendMessage(sender, text) {
             console.log('Error sending messages: ', error)
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
+        }
+    })
+}
+function getrep(text) {
+    request({
+        url: 'http://c-selfie.com/api.php',
+        method: 'GET',
+        json: {
+            hoi: text
+        }
+    }, function(error, response, body) {
+        if (error) {
+            return 'Error sending messages: '+ error
+        } else {
+            return response
         }
     })
 }
