@@ -14,6 +14,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
+    request('http://c-selfie.com/api.php?hoi=daw', function (error, response, body) {
+      console.log('error:', error); // Print the error if one occurred 
+      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
+      console.log('body:', body); // Print the HTML for the Google homepage. 
+});
 })
 
 app.get('/quest', function (req, res) {
