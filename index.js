@@ -19,9 +19,12 @@ app.get('/', function (req, res) {
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
       text = req.query['hoi']
-      console.log (getrep(text))
+      reptext = getrep(text)
+      console.log (reptext)
+    } else {
+      res.send('No')
     }
-    res.send('No')
+    
 })
 
 // for Facebook verification
