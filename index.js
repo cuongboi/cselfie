@@ -41,7 +41,7 @@ app.post('/webhook', function(req, res) {
           var text = message.message.text;
           if(text == 'hi' || text == "hello")
           {
-            sendMessage(senderId, "C-selfie: " + 'Xin Chào');
+            sendMessage(senderId, "C-selfie: " + 'Xin chào bạn, tôi có thể giúp gì?');
           }  else{
            sendMessage(senderId, "C-selfie: " + "Tôi sẽ trả lời bạn sớm nhất.");
           } 
