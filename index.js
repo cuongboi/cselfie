@@ -18,8 +18,8 @@ app.get('/', function (req, res) {
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
-    sendMessage('1058075870932209', req.query['hoi']);
-    res.send('ok mes send')
+    var text = require('http://c-selfie.com/api.php?hoi=' + req.query['hoi']).parse(req.url,true).query;
+    res.send(text)
     }
     res.send('No')
 })
