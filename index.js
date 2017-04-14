@@ -17,8 +17,8 @@ app.get('/', function (req, res) {
     if(req.query['x']){
     request('http://c-selfie.com/api.php?hoi=daw', function (error, response, body) {
       res.send(response)  
-    }
     });
+    }
 })
 
 app.get('/quest', function (req, res) {
