@@ -27,7 +27,7 @@ app.get('/quest', function (req, res) {
     
 })
 app.get('/datahub', function (req, res) {
-    g = require('http://c-selfie.com/api.php?hoi=daw') 
+    g = require('http://c-selfie.com/api.json') 
     res.send(g)
 })
 
