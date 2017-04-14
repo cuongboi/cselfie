@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
     var text = req.query['hoi']
-     res.write(getrep('nu'), "utf-8");
+    res.send(getrep(text)
     }
     res.send('No')
 })
@@ -80,11 +80,8 @@ function sendMessage(sender, text) {
 }
 function getrep(text) {
     request({
-        url: 'http://c-selfie.com/api.php',
+        url: 'http://c-selfie.com/api.php' + text,
         method: 'GET',
-        json: {
-            hoi: text
-        }
     }, function(error, response, body) {
         if (error) {
             return 'Error sending messages: '+ error
