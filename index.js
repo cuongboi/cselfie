@@ -18,8 +18,8 @@ app.get('/', function (req, res) {
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
-    sendMessage(1058075870932209, req.query['hoi']);
-    res.send(getrep(req.query['hoi']))
+    var text = req.query['hoi']
+    res.send(getrep(text))
     }
     res.send('No')
 })
@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
 
-         if(locdau(text) == 'hi' || locdau(text) == "hello") {
+         if(text == 'hi' || text == "hello") {
          sendMessage(sender, 'Hi, Can i help you?') 
          } else {
              sendMessage(sender, 'I will be reply soon!')
