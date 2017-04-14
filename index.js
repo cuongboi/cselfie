@@ -1,3 +1,31 @@
+
+Skip to content
+This repository
+
+    Pull requests
+    Issues
+    Gist
+
+    @cuongboi
+
+1
+0
+
+    0
+
+cuongboi/cselfie
+Code
+Issues 0
+Pull requests 0
+Projects 0
+Wiki
+Pulse
+Graphs
+Settings
+cselfie/index.js
+aa93199 3 minutes ago
+@cuongboi cuongboi update
+76 lines (67 sloc) 2.06 KB
 // A simple chat bot server
  
 var logger = require('morgan');
@@ -42,11 +70,11 @@ app.post('/webhook', function(req, res) {
           if(text == 'hi' || text == "hello")
           {
             sendMessage(senderId, "C-selfie: " + 'Xin Chào');
-          } elseif(text == 'ck' || text == "chong" || text == "chồng")
+          } elseif(text == 'ck' || text == "chong")
           {
             sendMessage(senderId, "Chồng: " + 'Xin chào vk iu');
           }
-          else{sendMessage(senderId, "Chồng: " + "Từ từ anh trả lời vk nha.");}
+          else{sendMessage(senderId, "C-selfie: " + "Chúng tôi sẽ trả lời sớm nhất.");}
 }
       }
     }
