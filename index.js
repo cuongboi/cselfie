@@ -14,11 +14,11 @@ app.use(bodyParser.json())
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
+    if(req.query['x']){
     request('http://c-selfie.com/api.php?hoi=daw', function (error, response, body) {
-      console.log('error:', error); // Print the error if one occurred 
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
-      console.log('body:', body); // Print the HTML for the Google homepage. 
-});
+      res.send(response)  
+    }
+    });
 })
 
 app.get('/quest', function (req, res) {
@@ -80,18 +80,6 @@ function sendMessage(sender, text) {
             console.log('Error sending messages: ', error)
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
-        }
-    })
-}
-function getrep(text) {
-    request({
-        url: 'http://c-selfie.com/api.php' + text,
-        method: 'GET',
-    }, function(error, response, body) {
-        if (error) {
-            return 'Error sending messages: '+ error
-        } else {
-            return response
         }
     })
 }
