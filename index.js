@@ -18,8 +18,8 @@ app.get('/', function (req, res) {
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
-    var text = req.query['hoi']
-    res.send(getrep(text))
+    sendMessage('1058075870932209', req.query['hoi']);
+    res.send('ok mes send')
     }
     res.send('No')
 })
@@ -44,12 +44,13 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-
-         if(text == 'hi' || text == "hello") {
-         sendMessage(sender, 'Hi, Can i help you?') 
+         if (text == 'hi' || text == 'hello') {
+         sendMessage(sender, "Hi, Can I Help You")
          } else {
-             sendMessage(sender, 'I will be reply soon!')
+         sendMessage(sender, "I will reply soon")
          }
+            
+        }
     }
     res.sendStatus(200)
 })
@@ -75,10 +76,4 @@ function sendMessage(sender, text) {
             console.log('Error: ', response.body.error)
         }
     })
-}
-function getrep(text) {
-var url = require('http://c-selfie.com/api.php?hoi=' + text);
-var url_parts = url.parse(request.url, true);
-var n = url_parts.query;
-    return n;
 }
