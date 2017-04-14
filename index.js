@@ -49,21 +49,23 @@ app.post('/webhook/', function (req, res) {
 
 
  
-// Gửi thông tin tới REST API để Bot tự trả lời
-function sendMessage(senderId, message) {
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {
-      access_token: "EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD",
-    },
-    method: 'POST',
-    json: {
-      recipient: {
-        id: senderId
-      },
-      message: {
-        text: message
-      },
+function sendMessage(sender, text) {
+    messageData = {
+        text:text
     }
-  });
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
 }
