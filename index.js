@@ -18,6 +18,8 @@ app.get('/', function (req, res) {
 
 app.get('/quest', function (req, res) {
     if(req.query['hoi'].length > 0) {
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.write(data, "utf-8");
     var text = req.query['hoi']
     res.send(getrep('nu'))
     }
