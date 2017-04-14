@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 
 app.get('/datahub', function (req, res) {
     g = require('./data.json') 
-    res.send(g.hoi)
+    res.send(g[hoi])
 })
 
 // for Facebook verification
