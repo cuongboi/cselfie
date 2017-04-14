@@ -44,8 +44,9 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            retext = getrep(text)
          if (text == 'hi' || text == 'hello') {
-         sendMessage(sender, "Hi, Can I Help You")
+         sendMessage(sender, retext)
          } else {
          sendMessage(sender, "I will reply soon")
          }
