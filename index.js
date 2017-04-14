@@ -42,10 +42,7 @@ app.post('/webhook', function(req, res) {
           if(text == 'hi' || text == "hello")
           {
             sendMessage(senderId, "C-selfie: " + 'Xin Chào');
-          }
-          else{sendMessage(senderId, "C-selfie: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
-        }
-       if(text == 'ck' || text == "chong" || text == "chồng")
+          } elseif(text == 'ck' || text == "chong" || text == "chồng")
           {
             sendMessage(senderId, "Chồng: " + 'Xin chào vk iu');
           }
