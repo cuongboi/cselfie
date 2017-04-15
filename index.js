@@ -56,16 +56,9 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            if (text === 'g') {
-                sendGMessage(sender)
-                continue
-            }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-        }
-        if (event.postback) {
-            text = JSON.stringify(event.postback)
-            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-            continue
+            request('http://c-selfie.com/api/ap.php?q=' + text).pipe(fs.createWriteStream('data.json'))
+            textsend = getrep(text)
+            sendMessage(sender, textsend)
         }
     }
     res.sendStatus(200)
@@ -73,41 +66,13 @@ app.post('/webhook/', function (req, res) {
 
 
  
-function sendGMessage(sender) {
+function sendMessage(sender, text) {
     messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
-                    }],
-                }]
-            }
-        }
+        text:text
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
+        qs: {access_token:"EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD"},
         method: 'POST',
         json: {
             recipient: {id:sender},
@@ -121,6 +86,7 @@ function sendGMessage(sender) {
         }
     })
 }
+
 function getrep(text) {
     rep = require('./data.json')
     t = text.toLowerCase()
@@ -130,3 +96,4 @@ function getrep(text) {
         return 'We replied soon as soon online'
     }
 }
+
