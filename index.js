@@ -48,13 +48,13 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 app.post('/webhook/', function (req, res) {
-    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            request('http://c-selfie.com/api/ap.php?q=' + text).pipe(fs.createWriteStream('data.json'))
             textsend = getrep(text)
             sendMessage(sender, textsend)
         }
