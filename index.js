@@ -47,7 +47,6 @@ app.get('/webhook/', function (req, res) {
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
-
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
@@ -55,10 +54,8 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-
-         sendMessage(sender, getrep(text))
-
-            
+            textsend = getrep(text)
+            sendMessage(sender, textsend)
         }
     }
     res.sendStatus(200)
