@@ -48,6 +48,7 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 app.post('/webhook/', function (req, res) {
+    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
