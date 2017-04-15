@@ -56,7 +56,6 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            request('http://c-selfie.com/api/ap.php?q=' + text).pipe(fs.createWriteStream('data.json'))
             textsend = getrep(text)
             sendMessage(sender, textsend)
         }
