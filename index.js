@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/data', function (req, res) {
-    g = require('./data.json')
+    g = require('./api.json')
     res.send(g)
 })
 
