@@ -18,8 +18,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/data', function (req, res) {
-    g = require ('./data.js')
-    res.send(g)
+    res.sendFile('./data.js')
 })
 
 app.get('/build', function (req, res) {
