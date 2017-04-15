@@ -13,13 +13,20 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-    //res.send('Hello world, I am a chat bot')
-    getrep()
+    res.send('Hello world, I am a chat bot')
 })
 
-app.get('/datahub', function (req, res) {
-    g = require('./data.json') 
-    res.send(g['hoi'])
+app.get('/build', function (req, res) {
+    if(req.query['api'].length > 0) {
+        if(req.query['api'] === 'passapi') {
+            request('http://c-selfie.com/api.json').pipe(fs.createWriteStream('data.json'))
+            res.sendStatus(200)
+        } else {
+          res.sendStatus(301)  
+        }
+    } else {
+        res.sendStatus(301)  
+    }
 })
 
 // for Facebook verification
