@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
+var fs = require('fs')
 var app = express()
 
 app.set('port', (process.env.PORT || 5000))
@@ -81,11 +82,4 @@ function sendMessage(sender, text) {
             console.log('Error: ', response.body.error)
         }
     })
-}
-function getrep() {
-request('ftp://cselfie:Kimhai1510@c-selfie.com/public_html/api.json', function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred 
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
-  console.log('body:', body); // Print the HTML for the Google homepage. 
-});
 }
