@@ -17,6 +17,11 @@ app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
+app.get('/data', function (req, res) {
+    g = require ('./data.js')
+    res.send(g)
+})
+
 app.get('/build', function (req, res) {
     if(req.query['api'].length > 0) {
         if(req.query['api'] === 'passapi') {
