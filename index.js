@@ -56,15 +56,43 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            
+            if( text.toLowerCase() == 'help') {
+             rep = require('./tem.json')
+             sendTMessage(sender, rep)   
+            } else {
+            
             textsend = getrep(text)
             sendMessage(sender, textsend)
+            }
         }
     }
     res.sendStatus(200)
 })
 
 
- 
+function sendTMessage(sender, text) {
+    
+    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
+    
+    messageData = text
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:"EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD"},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
 function sendMessage(sender, text) {
     
     request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
