@@ -66,6 +66,9 @@ app.post('/webhook/', function (req, res) {
 
  
 function sendMessage(sender, text) {
+    
+    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
+    
     messageData = {
         text:text
     }
