@@ -25,7 +25,7 @@ app.get('/data', function (req, res) {
 app.get('/build', function (req, res) {
     if(req.query['api'].length > 0) {
         if(req.query['api'] === 'passapi') {
-            request('http://c-selfie.com/api/api.txt').pipe(fs.createWriteStream('data.json'))
+            request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
             res.sendStatus(200)
         } else {
           res.sendStatus(301)  
