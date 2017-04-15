@@ -57,7 +57,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
             
-            if( text.toLowerCase() == 'help') {
+            if( text == 'help' || text == 'Help' ) {
              rep = require('./tem.json')
              sendTMessage(sender, rep)   
             } else {
