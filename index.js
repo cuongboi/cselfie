@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-﻿var express = require('express')
-var bodyParser = require('body-parser')
-var fs = require('fs');
-=======
 var express = require('express')
 var bodyParser = require('body-parser')
->>>>>>> bc5181d2d746bb66603fe93193acd9c4ba941c04
 var request = require('request')
 var app = express()
 
@@ -19,11 +13,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-<<<<<<< HEAD
-    res.send('hello')
-=======
     res.send('Hello world, I am a chat bot')
->>>>>>> bc5181d2d746bb66603fe93193acd9c4ba941c04
 })
 
 app.get('/build', function (req, res) {
@@ -39,23 +29,6 @@ app.get('/build', function (req, res) {
     }
 })
 
-<<<<<<< HEAD
-app.get('/quest', function (req, res) {
-    if(req.query['hoi'].length > 0) {
-        var t = req.query['hoi']
-        g = require('./data.json')
-        if(g[t] != 'undefined') {
-            res.send(g['d']) 
-        } else {
-            res.send('i will be update')
-        }
-    } else {
-        res.send('no data')
-    }
-})
-
-=======
->>>>>>> bc5181d2d746bb66603fe93193acd9c4ba941c04
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'cuong') {
@@ -110,16 +83,9 @@ function sendMessage(sender, text) {
     })
 }
 function getrep() {
-<<<<<<< HEAD
-request('http://c-selfie.com/api.php?hoi=' + t, function (error, response, body) {
-  return body
-});
-}
-=======
 request('ftp://cselfie:Kimhai1510@c-selfie.com/public_html/api.json', function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred 
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
   console.log('body:', body); // Print the HTML for the Google homepage. 
 });
 }
->>>>>>> bc5181d2d746bb66603fe93193acd9c4ba941c04
