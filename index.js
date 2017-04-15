@@ -55,11 +55,9 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-         if (text == 'hi' || text == 'hello') {
-         sendMessage(sender, "Hi, Can I Help You")
-         } else {
-         sendMessage(sender, "I will reply soon")
-         }
+
+         sendMessage(sender, getrep(text))
+
             
         }
     }
@@ -87,4 +85,14 @@ function sendMessage(sender, text) {
             console.log('Error: ', response.body.error)
         }
     })
+}
+
+function getrep(text) {
+    rep = require('./api.json')
+    t = text.toLowerCase()
+    if (rep[t]) {
+        return rep[t]
+    } else {
+        return 'We replied soon as soon online'
+    }
 }
