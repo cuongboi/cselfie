@@ -56,13 +56,14 @@ app.get('/gethook/', function (req, res) {
 })
 
 
- function messageA(senderID, messageText) {
+ function messageA(senderID, Text) {
 
- if (messageText) {    
+ if (messageText) { 
+
+    messageText =  messageText.toLowerCase()
     rep = require('./data.json')
-    t = messageText.toLowerCase()
-    if (rep[t]) {
-        var reply = rep[t]
+    if (rep[messageText]) {
+        var reply = rep[messageText]
     } else {
         var reply = 'We replied soon as soon online'
     }
