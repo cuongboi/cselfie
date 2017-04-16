@@ -54,7 +54,7 @@ app.post('/webhook/', function (req, res) {
     if (rep[t]) {
         var reply = rep[t]
     } else {
-        var reply 'We replied soon as soon online'
+        var reply = 'We replied soon as soon online'
     }
 
  if (messageText) {
