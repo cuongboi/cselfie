@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 var token = "EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD"
-
+var SERVER_URL  = "http://c-selfie.com"
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -37,18 +37,28 @@ app.post('/webhook/', function (req, res) {
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
-        if (event.message) {
-           var messageB =  event.message
-           messageA(messageB)
+        if (event.message && event.message.text) {
+            text = event.message.text
+            messageA(sender, text)
+        } else if (event.message.attachments) {
+            sendTextMessage(sender, "Message with attachment received")
         }
     }
     res.sendStatus(200)
 })
 
- function messageA(message) {
+app.get('/gethook/', function (req, res) {
+    message = req.query['message']
+        if (message) {
+           messageA('1058075870932209', message)
+    }
+    res.sendStatus(200)
+})
 
-    var messageText = message.text;
-    var messageAttachments = message.attachments;
+
+ function messageA(senderID, messageText) {
+
+ if (messageText) {    
     rep = require('./data.json')
     t = messageText.toLowerCase()
     if (rep[t]) {
@@ -56,8 +66,6 @@ app.post('/webhook/', function (req, res) {
     } else {
         var reply = 'We replied soon as soon online'
     }
-
- if (messageText) {
 
     switch (messageText) {
       case 'image':
@@ -103,9 +111,7 @@ app.post('/webhook/', function (req, res) {
       default:
         sendTextMessage(senderID, reply);
     }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
-}
+  }
 
 }
 
