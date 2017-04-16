@@ -109,7 +109,6 @@ function sendMessage(sender, text) {
 }
 
 function getrep(text) {
-    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
     rep = require('./data.json')
     t = text.toLowerCase()
     if (rep[t]) {
