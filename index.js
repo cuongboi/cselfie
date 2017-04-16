@@ -123,7 +123,7 @@ app.get('/gethook/', function (req, res) {
 function sendListMessage(recipientId) {
   var messageData = {
   "recipient":{
-    "id":"recipientId"
+    "id":recipientId
   }, "message": {
      "attachment": {
         "type": "template",
