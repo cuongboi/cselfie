@@ -93,8 +93,6 @@ function sendGMessage(sender) {
 
 function sendMessage(sender, text) {
     
-    request('http://c-selfie.com/api/api.json').pipe(fs.createWriteStream('data.json'))
-    
     messageData = {
         text:text
     }
