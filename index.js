@@ -100,11 +100,7 @@ app.get('/gethook/', function (req, res) {
 
       case 'quick reply':
         sendQuickReply(senderID);
-        break;        
-
-      case 'read receipt':
-        sendReadReceipt(senderID);
-        break;
+        break; 
 
       default:
         sendTextMessage(senderID, reply);
@@ -114,7 +110,19 @@ app.get('/gethook/', function (req, res) {
 }
 
 function sendImageMessage(recipientId) {
-  var messageData = require('./list.json');
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "image",
+        payload: {
+          url: SERVER_URL + "/assets/rift.png"
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
