@@ -20,6 +20,7 @@ app.get('/', function (req, res) {
 
 
 
+
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'cuong') {
@@ -41,6 +42,7 @@ app.post('/webhook/', function (req, res) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
         if (event.message) {
+           var messageB =  event.message
            messageA(event.message)
         }
     }
@@ -51,7 +53,13 @@ app.post('/webhook/', function (req, res) {
 
     var messageText = message.text;
     var messageAttachments = message.attachments;
-    var datarep  = getrep(message.text)
+    rep = require('./data.json')
+    t = messageText.toLowerCase()
+    if (rep[t]) {
+        var reply = rep[t]
+    } else {
+        var reply 'We replied soon as soon online'
+    }
 
  if (messageText) {
 
@@ -97,7 +105,7 @@ app.post('/webhook/', function (req, res) {
         break;
 
       default:
-        sendTextMessage(senderID, datarep);
+        sendTextMessage(senderID, reply);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -408,13 +416,4 @@ function callSendAPI(messageData) {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
     }
   });  
-}
-function getrep(text) {
-    rep = require('./data.json')
-    t = text.toLowerCase()
-    if (rep[t]) {
-        return rep[t]
-    } else {
-        return 'We replied soon as soon online'
-    }
 }
