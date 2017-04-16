@@ -1,9 +1,9 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
-var fs = require('fs')
 var app = express()
-var PAGE_ACCESS_TOKEN = "EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD"
+var token = "EAAS2PjFzojABADJVx48WvXxmxbRkmfk6fibi6ZCeVxGSZAI92QR46ZBf7UUykxrZBufz2T5vFD7JuZCEc4ES0ZA5IafYjub4FNIDMZALQBeW9qE8u9uLmMWAmRD8R2W4ZAZC18ajMH1Q92YpaiaFW1Gf76oqUklsgsRTEQLr5i8X99QZDZD"
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -18,9 +18,6 @@ app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
-
-
-
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'cuong') {
@@ -33,7 +30,6 @@ app.get('/webhook/', function (req, res) {
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
- 
 
 
 app.post('/webhook/', function (req, res) {
@@ -43,7 +39,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message) {
            var messageB =  event.message
-           messageA(event.message)
+           messageA(messageB)
         }
     }
     res.sendStatus(200)
@@ -396,7 +392,7 @@ function sendQuickReply(recipientId) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: PAGE_ACCESS_TOKEN },
+    qs: { access_token: token },
     method: 'POST',
     json: messageData
 
