@@ -56,11 +56,11 @@ app.get('/gethook/', function (req, res) {
 })
 
 
- function messageA(senderID, Text) {
+ function messageA(senderID, Textin) {
 
- if (messageText) { 
+ if (Textin) { 
 
-    messageText =  messageText.toLowerCase()
+    messageText =  Textin.toLowerCase()
     rep = require('./data.json')
     if (rep[messageText]) {
         var reply = rep[messageText]
