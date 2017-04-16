@@ -56,13 +56,8 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            
-            if( text == 'help' ) {
-             sendGMessage(sender)   
-            } else {  
             textsend = getrep(text)
             sendMessage(sender, textsend)
-            }
         }
     }
     res.sendStatus(200)
