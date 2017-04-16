@@ -39,7 +39,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            messageA(sender, text)
+            messageAll(sender, text)
         } else if (event.message.attachments) {
             sendTextMessage(sender, "Message with attachment received")
         }
@@ -50,13 +50,13 @@ app.post('/webhook/', function (req, res) {
 app.get('/gethook/', function (req, res) {
     message = req.query['message']
         if (message) {
-           messageA('1058075870932209', message)
+           messageAll('1227055480738455', message)
     }
     res.sendStatus(200)
 })
 
 
- function messageA(senderID, Textin) {
+ function messageAll(senderID, Textin) {
 
  if (Textin) { 
 
