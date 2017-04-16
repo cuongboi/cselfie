@@ -48,38 +48,8 @@ app.post('/webhook/', function (req, res) {
 })
 
 app.get('/gethook/', function (req, res) {
-    message = req.query['message']
-
-    messageData = {
-          "recipient": {
-            "id": "1058075870932209"
-          },
-          "message": {
-            "text": message
-          }
-        }
-    request({
-    uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: token },
-    method: 'POST',
-    json: messageData
-
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var recipientId = body.recipient_id;
-      var messageId = body.message_id;
-
-      if (messageId) {
-        console.log("Successfully sent message with id %s to recipient %s", 
-          messageId, recipientId);
-      } else {
-      console.log("Successfully called Send API for recipient %s", 
-        recipientId);
-      }
-    } else {
-      console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-    }
-  });  
+    g = require('./list.json')
+     res.send(g)
 })
 
 
@@ -136,10 +106,6 @@ app.get('/gethook/', function (req, res) {
         sendReadReceipt(senderID);
         break;
 
-       case 'list':
-        sendListMessage(senderID);
-        break; 
-
       default:
         sendTextMessage(senderID, reply);
     }
@@ -148,135 +114,7 @@ app.get('/gethook/', function (req, res) {
 }
 
 function sendImageMessage(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      attachment: {
-        type: "image",
-        payload: {
-          url: SERVER_URL + "/assets/rift.png"
-        }
-      }
-    }
-  };
-
-  callSendAPI(messageData);
-}
-
-function sendListMessage(recipientId) {
-  var messageData = {
-  recipient:{
-    id:"RECIPIENT_ID"
-  }, message: {
-     attachment: {
-        type: "template",
-        payload: {
-            template_type: "list",
-            top_element_style: "compact",
-            elements: [
-                {
-                    title: "Classic White T-Shirt",
-                    image_url: "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-                    subtitle: "100% Cotton, 200% Comfortable",
-                    default_action: {
-                        type: "web_url",
-                        url: "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                        messenger_extensions: true,
-                        webview_height_ratio: "tall",
-                        fallback_url: "https://peterssendreceiveapp.ngrok.io/"
-                    },
-                    buttons: [
-                        {
-                            title: "Buy",
-                            type: "web_url",
-                            url: "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                            messenger_extensions: true,
-                            webview_height_ratio: "tall",
-                            fallback_url: "https://peterssendreceiveapp.ngrok.io/"                        
-                        }
-                    ]                
-                },
-                {
-                    title: "Classic Blue T-Shirt",
-                    image_url: "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-                    subtitle: "100% Cotton, 200% Comfortable",
-                    default_action: {
-                        type: "web_url",
-                        url: "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                        messenger_extensions: true,
-                        webview_height_ratio: "tall",
-                        fallback_url: "https://peterssendreceiveapp.ngrok.io/"
-                    },
-                    buttons: [
-                        {
-                            title: "Buy",
-                            type: "web_url",
-                            url: "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                            messenger_extensions: true,
-                            webview_height_ratio: "tall",
-                            fallback_url: "https://peterssendreceiveapp.ngrok.io/"                        
-                        }
-                    ]                
-                },
-                {
-                    title: "Classic Black T-Shirt",
-                    image_url: "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
-                    subtitle: "100% Cotton, 200% Comfortable",
-                    default_action: {
-                        type: "web_url",
-                        url: "https://peterssendreceiveapp.ngrok.io/view?item=102",
-                        messenger_extensions: true,
-                        webview_height_ratio: "tall",
-                        fallback_url: "https://peterssendreceiveapp.ngrok.io/"
-                    },
-                    buttons: [
-                        {
-                            title: "Buy",
-                            type: "web_url",
-                            url: "https://peterssendreceiveapp.ngrok.io/shop?item=102",
-                            messenger_extensions: true,
-                            webview_height_ratio: "tall",
-                            fallback_url: "https://peterssendreceiveapp.ngrok.io/"                        
-                        }
-                    ]                
-                },
-                {
-                    title: "Classic Gray T-Shirt",
-                    image_url: "https://peterssendreceiveapp.ngrok.io/img/gray-t-shirt.png",
-                    subtitle: "100% Cotton, 200% Comfortable",
-                    default_action: {
-                        type: "web_url",
-                        url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
-                        messenger_extensions: true,
-                        webview_height_ratio: "tall",
-                        fallback_url: "https://peterssendreceiveapp.ngrok.io/"
-                    },
-                    buttons: [
-                        {
-                            title: "Buy",
-                            type: "web_url",
-                            url: "https://peterssendreceiveapp.ngrok.io/shop?item=103",
-                            messenger_extensions: true,
-                            webview_height_ratio: "tall",
-                            fallback_url: "https://peterssendreceiveapp.ngrok.io/"                        
-                        }
-                    ]                
-                }
-            ],
-             buttons: [
-                {
-                    title: "View More",
-                    type: "postback",
-                    payload: "payload"                        
-                }
-            ]  
-          }
-        }
-    }
-    
-    };
+  var messageData = require('./list.json');
 
   callSendAPI(messageData);
 }
