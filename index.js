@@ -70,7 +70,10 @@ app.post('/webhook/', function (req, res) {
 
 
 function sendGMessage(sender) {
-    messageData = require('tem.json')
+    tem = require('tem.json')
+    messageData = {
+        attachment: tem['attachment']
+    }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
