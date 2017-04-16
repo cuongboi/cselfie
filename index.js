@@ -136,6 +136,10 @@ app.get('/gethook/', function (req, res) {
         sendReadReceipt(senderID);
         break;
 
+       case 'list':
+        sendListMessage(senderID);
+        break; 
+
       default:
         sendTextMessage(senderID, reply);
     }
